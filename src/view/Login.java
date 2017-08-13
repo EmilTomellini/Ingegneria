@@ -7,6 +7,8 @@ package view;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -130,7 +132,9 @@ public class Login extends javax.swing.JFrame {
         if(!occupied) {
             String user = User.getText();
             char[] psw = Psw.getPassword();
-            switch(control.LoginControl.authenticator(user, psw)){
+            //aggiunto try perché cagacazzi il programma
+            try {
+                switch(control.LoginControl.authenticator(user, psw)){
                     case -1:
                         
                         Error.setVisible(true);
@@ -139,6 +143,7 @@ public class Login extends javax.swing.JFrame {
                     case 0:
                         Error.setVisible(false);
                         System.out.print("0");
+                        
                         break;
                     case 1:
                         Error.setVisible(false);
@@ -152,6 +157,9 @@ public class Login extends javax.swing.JFrame {
                         Error.setVisible(false);
                         System.out.print("3");
                         break;
+                }
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
             
