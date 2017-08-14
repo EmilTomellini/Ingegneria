@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package control;
+import model.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -15,11 +16,11 @@ import java.util.LinkedList;
  */
 public class Database {
     
-    private static Connection c = null;
-    private static Statement stmt = null;
+    private static Connection con = null;
+    private static Statement st = null;
     
-    public LinkedList<Object> getPazienti(){
-		LinkedList<Object> result = new LinkedList<Object>();
+    public LinkedList<Paziente> getPazienti(){
+		LinkedList<Paziente> result = new LinkedList<>();
                 try {
                 Class.forName("org.postgresql.Driver");
                 }
@@ -32,10 +33,10 @@ public class Database {
                   
                 }
                 catch ( SQLException e){
-                    System.out.println("miserabile");
+                    System.out.println("Database "+ e.getMessage());
                     System.exit(0);
                 }
-                
+
                 
                 
                 
