@@ -17,6 +17,7 @@ import java.sql.SQLException;
  */
 public class Farmacia {
  
+ private String nome;
  private String username;
  private String codice;
  private String farmaco;
@@ -29,18 +30,21 @@ public class Farmacia {
         try {
             Class.forName("org.postgresql.Driver");
             try(Connection con = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres","postgres","ciao")) {
-                PreparedStatement pst = con.prepareStatement("SELECT *  FROM faramcia WHERE nome ILIKE ?");
+                PreparedStatement pst = con.prepareStatement("SELECT DISTINCT nome, username, codice FROM farmacia WHERE codice ILIKE ?");
                 pst.clearParameters();
                 pst.setString(1, key);
                 ResultSet rs = pst.executeQuery();
+               
                  if(!rs.isBeforeFirst()) {
-                      System.out.print("Farmaco non trovato");
+                      System.out.print("Farmacia non trovata");
                   }
+                 
+                rs.next();
+                this.nome=rs.getString("nome");
                 this.username=rs.getString("username");
                 this.codice=rs.getString("codice");
-                this.farmaco=rs.getString("farmaco");
-                this.quantita_marca=rs.getInt("controIndicazioni");
-                this.quantita_generico=rs.getInt("quantita_generico");
+                //this.farmaco=rs.getString("farmaco");
+                //this.quantita_generico=rs.getInt("quantita_generico");
                                 
                 System.out.println("farmacia creata");
                 rs.close();
@@ -48,11 +52,11 @@ public class Farmacia {
                 con.close();
             }
             catch(SQLException e) {
-                    System.out.print(e.getMessage());
+                    System.out.print("qui"+e.getMessage());
                 }
             }
             catch(ClassNotFoundException e) {
-                System.out.print(e.getMessage());
+                System.out.print("qua"+e.getMessage());
             }
     }
     

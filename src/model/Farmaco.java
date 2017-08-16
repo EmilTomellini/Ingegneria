@@ -40,6 +40,7 @@ public class Farmaco {
                  if(!rs.isBeforeFirst()) {
                       System.out.print("Farmaco non trovato");
                   }
+                 rs.next();
                 this.nome=rs.getString("nome");
                 this.prezzo=rs.getFloat("prezzo");
                 this.formato=rs.getString("formato");
@@ -53,7 +54,7 @@ public class Farmaco {
                  if(!rs.isBeforeFirst()) {
                       System.out.print("Farmaco non trovato");
                   }
-                 
+                  rs.next();
                 this.principioAttivo=rs.getString("nome");
                 this.descrizionePrincipio=rs.getString("descrizione");
                 this.effettoPrincio=rs.getString("effetto");
@@ -65,7 +66,7 @@ public class Farmaco {
                  if(!rs.isBeforeFirst()) {
                       System.out.print("Farmaco non trovato");
                   }
-                 
+                  rs.next();
                 this.quantitaPrincipio=rs.getString("quantita");                
                
                 System.out.println("faramco creato");

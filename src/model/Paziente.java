@@ -55,7 +55,7 @@ public class Paziente {
                   Class.forName("org.postgresql.Driver");
                   Connection con = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres","postgres","ciao");
                   //recupero lista user
-                  PreparedStatement pst = con.prepareStatement("SELECT * FROM Paziente P WHERE P.codice_univoco ILIKE ?");
+                  PreparedStatement pst = con.prepareStatement("SELECT * FROM Paziente P WHERE P.username ILIKE ?");
                   pst.clearParameters();
                   pst.setString(1, key);
                   ResultSet rs = pst.executeQuery();

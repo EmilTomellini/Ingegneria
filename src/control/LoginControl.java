@@ -22,6 +22,7 @@ public class LoginControl {
         String token = user.substring(0,2);
         String password = new String(psw);
         
+        
         switch(token){
             case "pz":
                 
@@ -46,10 +47,7 @@ public class LoginControl {
                       }
                       */
                       //aggiunto per evitare un errore di sql
-                  rs.next();
-                  String codiceUnivoco = rs.getString("codice_univoco");
-                  model.Paziente pz = new model.Paziente(codiceUnivoco);
-                  System.out.println("\nnome:  "+pz.getName());
+                  rs.next();           
                   rs.close();
                   pst.close();
                   con.close();
@@ -68,7 +66,7 @@ public class LoginControl {
                   Connection c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres","postgres","ciao");
                   //System.out.print(user +" "+ password);
                   //recupero lista user
-                  PreparedStatement pst = c.prepareStatement("SELECT DISTINCT codice FROM Farmacia WHERE username ILIKE ? AND codice ILIKE ? ");
+                  PreparedStatement pst = c.prepareStatement("SELECT * FROM Farmacia WHERE username ILIKE ? AND codice ILIKE ? ");
                   pst.clearParameters();
                   pst.setString(1, user);
                   pst.setString(2, password);
@@ -77,16 +75,13 @@ public class LoginControl {
                   if(!rs.isBeforeFirst()) {
                       return -1;
                   }
+                  /*
                   while(rs.next()){
                     System.out.println("Codice farmacia: "+rs.getString("codice"));
                   }
-                    
+                   */ 
                   //aggiunto per evitare un errore di sql
                   rs.next();
-                  String codice = rs.getString("codice");
-                  model.Farmacia fm = new model.Farmacia("codice");
-                  
-                  
                   rs.close();
                   pst.close();
                   c.close();

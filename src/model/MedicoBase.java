@@ -41,7 +41,7 @@ public class MedicoBase extends Medico {
         try {
                 Class.forName("org.postgresql.Driver");
                 try(Connection con = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres","postgres","ciao")) {
-                    PreparedStatement pst = con.prepareStatement("SELECT nome_specialistica, data FROM Specialistica WHERE codice_medico ILIKE ?");
+                    PreparedStatement pst = con.prepareStatement("SELECT nome_specialistica, data FROM Specialistica WHERE username ILIKE ?");
                     pst.clearParameters();
                     pst.setString(1, key);
                     ResultSet rs = pst.executeQuery();

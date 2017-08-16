@@ -5,7 +5,7 @@
  */
 package view;
 
-import view.Farmacia.*;
+import model.*;
 import java.awt.Color;
 import java.awt.Font;
 import java.util.logging.Level;
@@ -16,6 +16,7 @@ import java.util.logging.Logger;
  * @author emil
  */
 public class Login extends javax.swing.JFrame {
+    
 
     public static boolean occupied=false;
     /**
@@ -41,6 +42,7 @@ public class Login extends javax.swing.JFrame {
         LUser = new javax.swing.JLabel();
         LPsw = new javax.swing.JLabel();
         Error = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -66,12 +68,19 @@ public class Login extends javax.swing.JFrame {
 
         Error.setText("ERRORE");
 
+        jButton1.setText("ESCI");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(117, 117, 117)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -84,10 +93,15 @@ public class Login extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(Psw, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(151, 151, 151)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(Error)
-                            .addComponent(LogButton))))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(177, 177, 177)
+                                .addComponent(Error))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(75, 75, 75)
+                                .addComponent(LogButton)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton1)))
                 .addContainerGap(82, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -102,7 +116,9 @@ public class Login extends javax.swing.JFrame {
                     .addComponent(LPsw)
                     .addComponent(Psw, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(31, 31, 31)
-                .addComponent(LogButton)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(LogButton)
+                    .addComponent(jButton1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
                 .addComponent(Error)
                 .addGap(36, 36, 36))
@@ -144,21 +160,35 @@ public class Login extends javax.swing.JFrame {
                         System.out.print("-1");
                         break;
                     case 0://paziente
+                        occupied=true;
                         Error.setVisible(false);
                         System.out.print("0");
-                        Paziente.main(null);
+                        Paziente pz = new Paziente(user);
+                        PazienteView pv = new PazienteView(pz);
+                        pv.setVisible(true);
                         break;
                     case 1://farmacia
-                        Error.setVisible(false);
-                        Farmacia.main(password);
+                        occupied=true;
+                        Error.setVisible(false); 
+                        //System.out.print(password);
+                        model.Farmacia fm = new model.Farmacia(password);
+                        FarmaciaView fv = new FarmaciaView(fm);
+                        fv.setVisible(true);
                         System.out.print("1");
                         break;
                     case 2://medico base
+                        occupied=true;
+                        model.MedicoBase mb = new model.MedicoBase(user);
+                        MedicoBaseView mbv = new MedicoBaseView(mb);
+                        mbv.setVisible(true);
                         Error.setVisible(false);
                         System.out.print("2");
                         break;
                     case 3://medico
                         Error.setVisible(false);
+                        model.Medico m = new model.Medico(user);
+                        MedicoView mv = new MedicoView(m);
+                        mv.setVisible(true);
                         System.out.print("3");
                         break;
                 }
@@ -168,6 +198,11 @@ public class Login extends javax.swing.JFrame {
         }
             
     }//GEN-LAST:event_LogButtonActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        if(occupied==false)
+            System.exit(0);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -214,6 +249,7 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JButton LogButton;
     private javax.swing.JPasswordField Psw;
     private javax.swing.JTextField User;
+    private javax.swing.JButton jButton1;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }
