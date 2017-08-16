@@ -49,9 +49,10 @@ public class Medico {
                     pst.clearParameters();
                     pst.setString(1, key);
                     ResultSet rs = pst.executeQuery();
-                    if(rs.next()==false){
-                        System.out.print("ResultSet vuoto");
-                    }
+                    if(!rs.isBeforeFirst()) {
+                       System.out.print("ResultSet vuoto");
+                         }
+                    rs.next();
                     this.username=rs.getString("username");
                     this.psw=rs.getString("psw");
                     this.codiceRegionale=rs.getString("codice_regionale");
@@ -61,6 +62,8 @@ public class Medico {
                     this.dataDiNascita=rs.getDate("data_nascita");
                     this.luogoDiNascita=rs.getString("luogo_nascita");
                     this.tipoMedico=rs.getString("tipo_medico").toLowerCase();
+                    
+                    System.out.println("Medico "+tipoMedico +" creato");
                     
                     rs.close();
                     pst.close();

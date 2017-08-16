@@ -45,9 +45,10 @@ public class MedicoBase extends Medico {
                     pst.clearParameters();
                     pst.setString(1, key);
                     ResultSet rs = pst.executeQuery();
-                    if(rs.next()==false){
-                        System.out.print("ResultSet vuoto");
-                    }
+                    if(!rs.isBeforeFirst()) {
+                      System.out.print("Query Medico Base vuota");     
+                        }
+                    rs.next();
                     this.specializzazione=rs.getString("nome_specialistica");
                     this.dataSpecializzazione=rs.getDate("data");
                     System.out.println("Medico di base creato");

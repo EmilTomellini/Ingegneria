@@ -46,7 +46,7 @@ public class LoginControl {
                       }
                       */
                       //aggiunto per evitare un errore di sql
-                  //rs.next();
+                  rs.next();
                   String codiceUnivoco = rs.getString("codice_univoco");
                   model.Paziente pz = new model.Paziente(codiceUnivoco);
                   System.out.println("\nnome:  "+pz.getName());
@@ -84,6 +84,7 @@ public class LoginControl {
                   //aggiunto per evitare un errore di sql
                   rs.next();
                   String codice = rs.getString("codice");
+                  model.Farmacia fm = new model.Farmacia("codice");
                   
                   
                   rs.close();

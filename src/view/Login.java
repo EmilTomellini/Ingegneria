@@ -5,6 +5,7 @@
  */
 package view;
 
+import view.Farmacia.*;
 import java.awt.Color;
 import java.awt.Font;
 import java.util.logging.Level;
@@ -132,6 +133,8 @@ public class Login extends javax.swing.JFrame {
         if(!occupied) {
             String user = User.getText();
             char[] psw = Psw.getPassword();
+            String password = new String(psw);
+            
             //aggiunto try perché cagacazzi il programma
             try {
                 switch(control.LoginControl.authenticator(user, psw)){
@@ -140,20 +143,21 @@ public class Login extends javax.swing.JFrame {
                         Error.setVisible(true);
                         System.out.print("-1");
                         break;
-                    case 0:
+                    case 0://paziente
                         Error.setVisible(false);
                         System.out.print("0");
-                        
+                        Paziente.main(null);
                         break;
-                    case 1:
+                    case 1://farmacia
                         Error.setVisible(false);
+                        Farmacia.main(password);
                         System.out.print("1");
                         break;
-                    case 2:
+                    case 2://medico base
                         Error.setVisible(false);
                         System.out.print("2");
                         break;
-                    case 3:
+                    case 3://medico
                         Error.setVisible(false);
                         System.out.print("3");
                         break;
