@@ -11,6 +11,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
 /**
  *
  * @author emil
@@ -39,8 +40,8 @@ public class FarmaciaView extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButtonChiusura = new javax.swing.JButton();
-        jLabelNomeFarmaco = new javax.swing.JLabel();
+        Esci = new javax.swing.JButton();
+        NomeFarmaco = new javax.swing.JLabel();
         jLabelQuantita = new javax.swing.JLabel();
         jLabelFarmacia = new javax.swing.JLabel();
         jTextFieldNomeFarmaco = new javax.swing.JTextField();
@@ -52,18 +53,18 @@ public class FarmaciaView extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jButtonChiusura.setText("ESCI");
-        jButtonChiusura.addMouseListener(new java.awt.event.MouseAdapter() {
+        Esci.setText("ESCI");
+        Esci.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButtonChiusuraMouseClicked(evt);
+                EsciMouseClicked(evt);
             }
         });
 
-        jLabelNomeFarmaco.setText("Nome Farmaco");
+        NomeFarmaco.setText("Nome Farmaco");
 
         jLabelQuantita.setText("Quantità");
 
-        jLabelFarmacia.setText("Farmacia: "+ fm.getPsw());
+        jLabelFarmacia.setText("Farmacia: "+ fm.getNome());
 
         jButtonOrdina.setText("Ordina");
         jButtonOrdina.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -96,13 +97,13 @@ public class FarmaciaView extends javax.swing.JFrame {
                 .addGap(73, 73, 73)
                 .addComponent(jButtonOrdina)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButtonChiusura)
+                .addComponent(Esci)
                 .addGap(40, 40, 40))
             .addGroup(layout.createSequentialGroup()
                 .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabelNomeFarmaco)
+                        .addComponent(NomeFarmaco)
                         .addGap(39, 39, 39))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -134,7 +135,7 @@ public class FarmaciaView extends javax.swing.JFrame {
                 .addComponent(jLabelFarmacia, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelNomeFarmaco)
+                    .addComponent(NomeFarmaco)
                     .addComponent(jTextFieldNomeFarmaco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(48, 48, 48)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -147,7 +148,7 @@ public class FarmaciaView extends javax.swing.JFrame {
                 .addComponent(jCheckBoxGenerico)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonChiusura)
+                    .addComponent(Esci)
                     .addComponent(jButtonOrdina))
                 .addGap(22, 22, 22))
         );
@@ -163,10 +164,10 @@ public class FarmaciaView extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jCheckBoxGenericoActionPerformed
 
-    private void jButtonChiusuraMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonChiusuraMouseClicked
+    private void EsciMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EsciMouseClicked
         Login.occupied=false;
         dispose();
-    }//GEN-LAST:event_jButtonChiusuraMouseClicked
+    }//GEN-LAST:event_EsciMouseClicked
 
     private void jButtonOrdinaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonOrdinaMouseClicked
         String farmaco=jTextFieldNomeFarmaco.getText();
@@ -175,7 +176,7 @@ public class FarmaciaView extends javax.swing.JFrame {
         try {
             quantitaInt = Integer.parseInt(quantitaString);
         }
-        catch(Exception e){
+        catch(NumberFormatException e){
             //bloccare qui senzA ANDARE AVANTI
             jLabelError.setText("Quantità del farmaco non è numerica");
             jLabelError.setVisible(true);
@@ -183,67 +184,41 @@ public class FarmaciaView extends javax.swing.JFrame {
             
         }
         
-        System.out.print(quantitaInt);
-        if(quantitaInt<0 || quantitaInt>100){
+        if(!control.FarmaciaControl.checkQuantita(quantitaInt)) {
             System.out.print("quantità negativa");
             jLabelError.setText("Quantità del farmaco errata");
             jLabelError.setVisible(true);
             }
-        else if(quantitaInt>=0 || quantitaInt<=100) {
-        try {
-            jLabelError.setText("\t \t \t ");
-            jLabelError.setVisible(true);
-                Class.forName("org.postgresql.Driver");
-                try(Connection con = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres","postgres","ciao")) {
-                    PreparedStatement pst;
-                    pst=con.prepareStatement("SELECT farmaco FROM farmacia WHERE farmaco ILIKE ?");
-                    pst.setString(1, farmaco);
-                    ResultSet rs=pst.executeQuery();
-                    if(!rs.isBeforeFirst()){
-                       jLabelError.setText("Farmaco non esistente");
-                       jLabelError.setVisible(true);
-                       System.out.print("farmaco non esiste");
-                    }
-                    else if(rs.isBeforeFirst()) {
-                        System.out.print("farmaco esiste");
-                    if(jCheckBoxGenerico.isSelected()) {
-                        System.out.print("generico");
-                        pst = con.prepareStatement("UPDATE Farmacia SET quantita_generico=quantita_generico+? WHERE codice ILIKE ? AND farmaco ILIKE ?");
-                    }
-                    else
-                        pst = con.prepareStatement("UPDATE Farmacia SET quantita_marca=quantita_marca+? WHERE codice ILIKE ? AND farmaco ILIKE ?");
-                    pst.clearParameters();
-                    pst.setInt(1, quantitaInt);
-                    pst.setString(2, fm.getPsw());
-                    pst.setString(3, farmaco);
-                    System.out.print(pst);
-                    rs = pst.executeQuery();
-                    rs.next();
-                    System.out.println("FarmaciaView ok");
-                    rs.close();
-                    pst.close();
-                    con.close();
-                    }
+        else {
+            if(control.FarmaciaControl.checkEsistenza(farmaco)) {
+                   if(jCheckBoxGenerico.isSelected()) {
+                       control.FarmaciaControl.updateFaramcoGenerico(farmaco, fm.getPsw(), quantitaInt);
+                   } 
+                   else
+                       control.FarmaciaControl.updateFaramcoMarca(farmaco, fm.getPsw(), quantitaInt);
                 }
-                catch(SQLException e) {
-                    System.out.print(e.getMessage());
+            else {
+                if(jCheckBoxGenerico.isSelected()) {
+                    control.FarmaciaControl.inserimentoNuovoFaramcoGenerico(farmaco, fm, quantitaInt);
                 }
+                else 
+                    control.FarmaciaControl.inserimentoNuovoFaramcoMarca(farmaco, fm, quantitaInt);
             }
-            catch(ClassNotFoundException e) {
-                System.out.print(e.getMessage());
-            }
-        }
+            
+            
+    }
+
     }//GEN-LAST:event_jButtonOrdinaMouseClicked
 
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButtonChiusura;
+    private javax.swing.JButton Esci;
+    private javax.swing.JLabel NomeFarmaco;
     private javax.swing.JButton jButtonOrdina;
     private javax.swing.JCheckBox jCheckBoxGenerico;
     private javax.swing.JLabel jLabelError;
     private javax.swing.JLabel jLabelFarmacia;
-    private javax.swing.JLabel jLabelNomeFarmaco;
     private javax.swing.JLabel jLabelQuantita;
     private javax.swing.JLabel jLabelQuantitaMax;
     private javax.swing.JTextField jTextFieldNomeFarmaco;

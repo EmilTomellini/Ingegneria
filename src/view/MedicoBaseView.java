@@ -34,7 +34,7 @@ public class MedicoBaseView extends javax.swing.JFrame {
 
         jButton1 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
+        CompilaPrescrizione = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
@@ -51,7 +51,12 @@ public class MedicoBaseView extends javax.swing.JFrame {
 
         jLabel1.setText("Medico di base: "+mb.getName()+" "+mb.getCognome());
 
-        jButton2.setText("Effettua prescrizione");
+        CompilaPrescrizione.setText("Effettua prescrizione");
+        CompilaPrescrizione.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                CompilaPrescrizioneMouseClicked(evt);
+            }
+        });
 
         jButton3.setText("Lista reazioni avverse");
 
@@ -76,7 +81,7 @@ public class MedicoBaseView extends javax.swing.JFrame {
                     .addComponent(jButton6)
                     .addComponent(jButton5)
                     .addComponent(jButton4)
-                    .addComponent(jButton2)
+                    .addComponent(CompilaPrescrizione)
                     .addComponent(jButton3))
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -95,7 +100,7 @@ public class MedicoBaseView extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton2)
+                .addComponent(CompilaPrescrizione)
                 .addGap(18, 18, 18)
                 .addComponent(jButton4)
                 .addGap(18, 18, 18)
@@ -121,11 +126,15 @@ public class MedicoBaseView extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton4ActionPerformed
 
+    private void CompilaPrescrizioneMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CompilaPrescrizioneMouseClicked
+        control.MedicoControl.effettuaPrescrizioni();
+    }//GEN-LAST:event_CompilaPrescrizioneMouseClicked
+
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton CompilaPrescrizione;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;

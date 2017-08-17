@@ -60,7 +60,15 @@ public class Farmacia {
             }
     }
     
-   
+    public String getNome() {
+           return nome;
+        }
+ 
+     public String getUser() {
+          return username;
+       }
+ 
+    
     public String getPsw() {
            return codice;
         }

@@ -192,10 +192,6 @@ public class LoginControl {
                   }
                     */
                   //aggiunto per evitare un errore di sql
-                  rs.next();
-                  String codiceUnivoco = rs.getString("codice_regionale");
-                  model.Medico ms = new model.Medico(codiceUnivoco);
-                  System.out.println("Nome medico: "+ms.getName());
                   rs.close();
                   pst.close();
                   con.close();
