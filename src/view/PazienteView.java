@@ -50,14 +50,14 @@ public class PazienteView extends javax.swing.JFrame {
 
         jButton2.setText("Richiedi prescrizione");
 
-        jButton3.setText("Ritira prescrizione");
+        jButton3.setText("Ritira Farmaci");
         jButton3.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButton3MouseClicked(evt);
             }
         });
 
-        jButton4.setText("Ritira Farmaci");
+        jButton4.setText("Ritira prescrizione");
 
         Visita.setText("Effettua visita");
         Visita.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -74,7 +74,6 @@ public class PazienteView extends javax.swing.JFrame {
                 .addContainerGap(41, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton4)
-                    .addComponent(jButton3)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButton2)
                         .addGap(26, 26, 26)
@@ -85,7 +84,8 @@ public class PazienteView extends javax.swing.JFrame {
                             .addGap(29, 29, 29))
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                             .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 313, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(46, 46, 46)))))
+                            .addGap(46, 46, 46)))
+                    .addComponent(jButton3)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -96,11 +96,11 @@ public class PazienteView extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton2)
                     .addComponent(Visita))
-                .addGap(29, 29, 29)
-                .addComponent(jButton3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
+                .addGap(30, 30, 30)
                 .addComponent(jButton4)
-                .addGap(28, 28, 28)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 69, Short.MAX_VALUE)
+                .addComponent(jButton3)
+                .addGap(23, 23, 23)
                 .addComponent(jButton1)
                 .addGap(25, 25, 25))
         );
