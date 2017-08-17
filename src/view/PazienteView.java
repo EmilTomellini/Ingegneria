@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package view;
-import model.Paziente.*;
+
 /**
  *
  * @author emil
@@ -49,6 +49,16 @@ public class PazienteView extends javax.swing.JFrame {
         jLabel1.setText("Paziente: "+pz.getName()+" "+pz.getCognome());
 
         jButton2.setText("Richiedi prescrizione");
+        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton2MouseClicked(evt);
+            }
+        });
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("Ritira Farmaci");
         jButton3.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -123,6 +133,14 @@ public class PazienteView extends javax.swing.JFrame {
         RitiroView rv = new RitiroView(pz);
         rv.setVisible(true);
     }//GEN-LAST:event_jButton3MouseClicked
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
+       control.PazienteControl.insertPrescrizioneRichiesta(pz.getCodice());
+    }//GEN-LAST:event_jButton2MouseClicked
 
 
 

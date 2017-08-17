@@ -62,6 +62,11 @@ public class RitiroView extends javax.swing.JFrame {
         jRadioButton3.setText(control.FarmaciaControl.listaFarmacie().get(2));
 
         jButton2.setText("Ritira Farmaci");
+        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton2MouseClicked(evt);
+            }
+        });
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -138,6 +143,12 @@ public class RitiroView extends javax.swing.JFrame {
         Login.pv.setVisible(true);
         dispose();
     }//GEN-LAST:event_jButton1MouseClicked
+
+    private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
+        String numTessera = jTextField1.getText();
+        String numPrescrizione = jTextField2.getText();
+        //TODO
+    }//GEN-LAST:event_jButton2MouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
