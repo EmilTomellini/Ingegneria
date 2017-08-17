@@ -33,7 +33,8 @@ public class MedicoView extends javax.swing.JFrame {
         Utente = new javax.swing.JLabel();
         CompilaPrescrizioni = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setResizable(false);
 
         Esci.setText("ESCI");
         Esci.addMouseListener(new java.awt.event.MouseAdapter() {

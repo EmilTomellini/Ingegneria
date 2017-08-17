@@ -17,7 +17,8 @@ import java.util.logging.Logger;
  */
 public class Login extends javax.swing.JFrame {
     
-
+    
+    public static PazienteView pv;
     public static boolean occupied=false;
     /**
      * Creates new form Login
@@ -164,7 +165,7 @@ public class Login extends javax.swing.JFrame {
                         Error.setVisible(false);
                         System.out.print("0");
                         Paziente pz = new Paziente(user);
-                        PazienteView pv = new PazienteView(pz);
+                        pv = new PazienteView(pz);
                         pv.setVisible(true);
                         break;
                     case 1://farmacia

@@ -10,11 +10,14 @@ package view;
  * @author emil
  */
 public class RitiroView extends javax.swing.JFrame {
-
+    
+    
+    model.Paziente pz;
     /**
      * Creates new form RitiroView
      */
-    public RitiroView() {
+    public RitiroView(model.Paziente pz) {
+        this.pz=pz;
         initComponents();
     }
 
@@ -37,9 +40,15 @@ public class RitiroView extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jTextField2 = new javax.swing.JTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setResizable(false);
 
         jButton1.setText("ESCI");
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton1MouseClicked(evt);
+            }
+        });
 
         jRadioButton1.setText("jRadioButton1");
 
@@ -119,6 +128,11 @@ public class RitiroView extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+        Login.pv.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_jButton1MouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

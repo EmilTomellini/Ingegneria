@@ -34,9 +34,10 @@ public class PazienteView extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        Visita = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setResizable(false);
 
         jButton1.setText("ESCI");
         jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -50,10 +51,20 @@ public class PazienteView extends javax.swing.JFrame {
         jButton2.setText("Richiedi prescrizione");
 
         jButton3.setText("Ritira prescrizione");
+        jButton3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton3MouseClicked(evt);
+            }
+        });
 
         jButton4.setText("Ritira Farmaci");
 
-        jButton5.setText("Effettua visita");
+        Visita.setText("Effettua visita");
+        Visita.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                VisitaMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -67,7 +78,7 @@ public class PazienteView extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButton2)
                         .addGap(26, 26, 26)
-                        .addComponent(jButton5))
+                        .addComponent(Visita))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                             .addComponent(jButton1)
@@ -84,7 +95,7 @@ public class PazienteView extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton2)
-                    .addComponent(jButton5))
+                    .addComponent(Visita))
                 .addGap(29, 29, 29)
                 .addComponent(jButton3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
@@ -103,14 +114,24 @@ public class PazienteView extends javax.swing.JFrame {
         System.out.print("click on button");
     }//GEN-LAST:event_jButton1MouseClicked
 
+    private void VisitaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_VisitaMouseClicked
+        control.PazienteControl.insertPrescrizioneVisita(pz.getCodice());
+    }//GEN-LAST:event_VisitaMouseClicked
+
+    private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
+        this.setVisible(false);
+        RitiroView rv = new RitiroView(pz);
+        rv.setVisible(true);
+    }//GEN-LAST:event_jButton3MouseClicked
+
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Visita;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
 }

@@ -51,7 +51,8 @@ public class FarmaciaView extends javax.swing.JFrame {
         jLabelQuantitaMax = new javax.swing.JLabel();
         jLabelError = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setResizable(false);
 
         Esci.setText("ESCI");
         Esci.addMouseListener(new java.awt.event.MouseAdapter() {
