@@ -8,8 +8,10 @@ package control;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.Statement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 /**
  *
@@ -20,7 +22,40 @@ public class FarmaciaControl  {
     public static boolean checkQuantita(int n) {
             return !((n<0 || n>100));
             }
-            
+          
+    
+    public static ArrayList<String> listaFarmacie() {
+                
+            ArrayList<String> farmacie= new ArrayList<String>();
+          try {
+                Class.forName("org.postgresql.Driver");
+                try(Connection con = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres","postgres","ciao")) {
+                    Statement st = con.createStatement();
+                    System.out.print("banana");
+                    ResultSet rs = st.executeQuery("SELECT DISTINCT nome, codice FROM Farmacia");
+                    if(!rs.isBeforeFirst()) {
+                      System.out.print("Lista farmacie vuota");     
+                        }
+                    while(rs.next()) {
+                        System.out.print(rs.getString("nome"));
+                        farmacie.add(rs.getString("nome"));
+                        }
+                    System.out.println("lista farmacie creata");
+                    rs.close();
+                    st.close();
+                    con.close();
+                }
+                catch(SQLException e) {
+                    System.out.print(e.getMessage());
+                }
+            }
+            catch(ClassNotFoundException e) {
+                System.out.print(e.getMessage());
+            }  
+        
+        return farmacie;
+
+      }
 
     public static boolean checkEsistenza(String s){
          try {
