@@ -11,6 +11,7 @@ import java.awt.Font;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+
 /**
  *
  * @author emil
@@ -47,6 +48,11 @@ public class Login extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
+        addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                formMouseDragged(evt);
+            }
+        });
 
         User.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -155,8 +161,7 @@ public class Login extends javax.swing.JFrame {
             //aggiunto try perché cagacazzi il programma
             try {
                 switch(control.LoginControl.authenticator(user, psw)){
-                    case -1:
-                        
+                    case -1:                   
                         Error.setVisible(true);
                         System.out.print("-1");
                         break;
@@ -204,6 +209,10 @@ public class Login extends javax.swing.JFrame {
         if(occupied==false)
             System.exit(0);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void formMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseDragged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_formMouseDragged
 
     /**
      * @param args the command line arguments

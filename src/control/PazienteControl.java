@@ -91,8 +91,9 @@ public class PazienteControl {
 
     }
     
-    public static void insertPrescrizioneRichiesta(String codicePaziente){
-        System.out.print("oh oh oh oh");
+    public static boolean insertPrescrizioneRichiesta(String codicePaziente, boolean b){
+        System.out.print("oh oh oh oh"); 
+        if(b){
             try {
                 Class.forName("org.postgresql.Driver");
                 try(Connection con = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres","postgres","ciao")) {
@@ -158,9 +159,41 @@ public class PazienteControl {
             catch(ClassNotFoundException e) {
                 System.out.print(e.getMessage());
             }
-
+            return true;
+        }
+        else
+            return false;
 
     }
+    
+    public static void ritiroPrescrizione(String codicePaziente) {
+            
+            try {
+                Class.forName("org.postgresql.Driver");
+                try(Connection con = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres","postgres","ciao")) {
+                    PreparedStatement pst = con.prepareStatement("UPDATE Prescrizione SET ritirata = TRUE where pendente = FALSE AND codice_paziente ILIKE ?");
+                    pst.clearParameters();
+                    pst.setString(1, codicePaziente);
+                    ResultSet rs = pst.executeQuery();
+                    if(!rs.isBeforeFirst()) {
+                      System.out.print("Query ritiro vuota");     
+                        }
+                    rs.next();
+                    rs.close();
+                    pst.close();
+                    con.close();
+                }
+                catch(SQLException e) {
+                    System.out.print(e.getMessage());
+                }
+            }
+            catch(ClassNotFoundException e) {
+                System.out.print(e.getMessage());
+            }
+            
+    
+    
+        }
     
     
     

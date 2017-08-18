@@ -68,6 +68,11 @@ public class PazienteView extends javax.swing.JFrame {
         });
 
         jButton4.setText("Ritira prescrizione");
+        jButton4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton4MouseClicked(evt);
+            }
+        });
 
         Visita.setText("Effettua visita");
         Visita.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -139,8 +144,12 @@ public class PazienteView extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
-       control.PazienteControl.insertPrescrizioneRichiesta(pz.getCodice());
+       boolean b = control.PazienteControl.insertPrescrizioneRichiesta(pz.getCodice(), pz.getCronico());
     }//GEN-LAST:event_jButton2MouseClicked
+
+    private void jButton4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton4MouseClicked
+        control.PazienteControl.ritiroPrescrizione(pz.getCodice());
+    }//GEN-LAST:event_jButton4MouseClicked
 
 
 

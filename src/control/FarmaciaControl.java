@@ -24,7 +24,7 @@ public class FarmaciaControl  {
             }
           
     
-    public static ArrayList<String> listaFarmacie() {
+    public static ArrayList<String> listaNomiFarmacie() {
                 
             ArrayList<String> farmacie= new ArrayList<String>();
           try {
@@ -32,7 +32,7 @@ public class FarmaciaControl  {
                 try(Connection con = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres","postgres","ciao")) {
                     Statement st = con.createStatement();
                     System.out.print("banana");
-                    ResultSet rs = st.executeQuery("SELECT DISTINCT nome, codice FROM Farmacia");
+                    ResultSet rs = st.executeQuery("SELECT DISTINCT nome, codice FROM Farmacia ORDER BY nome");
                     if(!rs.isBeforeFirst()) {
                       System.out.print("Lista farmacie vuota");     
                         }
@@ -56,8 +56,42 @@ public class FarmaciaControl  {
         return farmacie;
 
       }
+    
+        public static ArrayList<String> listaCodiciFarmacie() {
+                
+            ArrayList<String> farmacie= new ArrayList<String>();
+          try {
+                Class.forName("org.postgresql.Driver");
+                try(Connection con = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres","postgres","ciao")) {
+                    Statement st = con.createStatement();
+                    System.out.print("banana");
+                    ResultSet rs = st.executeQuery("SELECT DISTINCT nome, codice FROM Farmacia ORDER BY nome");
+                    if(!rs.isBeforeFirst()) {
+                      System.out.print("Lista farmacie vuota");     
+                        }
+                    while(rs.next()) {
+                        System.out.print(rs.getString("nome"));
+                        farmacie.add(rs.getString("codice"));
+                        }
+                    System.out.println("lista farmacie creata");
+                    rs.close();
+                    st.close();
+                    con.close();
+                }
+                catch(SQLException e) {
+                    System.out.print(e.getMessage());
+                }
+            }
+            catch(ClassNotFoundException e) {
+                System.out.print(e.getMessage());
+            }  
+        
+        return farmacie;
+
+      }
 
     public static boolean checkEsistenza(String s){
+        
          try {
                 Class.forName("org.postgresql.Driver");
                 try(Connection con = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres","postgres","ciao")) {
@@ -219,12 +253,78 @@ public class FarmaciaControl  {
             }
         }
         
+    public static void ritiraFarmaciGenerico(String paziente, String codicePrescrizione, String codiceFarmacia) {
+              
+            ArrayList<String> listaFarmaci = control.PrescrizioneControl.getListaFarmaci(paziente, codicePrescrizione);
+            PreparedStatement pst;
+            
+             try {
+                Class.forName("org.postgresql.Driver");
+                try(Connection con = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres","postgres","ciao")) {
+                    
+                    pst = con.prepareStatement("UPDATE Farmacia SET quantita_generico = quantita_generico-1 WHERE codice ILIKE ? AND farmaco ILIKE ? ");
+                    pst.clearParameters();
+                    pst.setString(1, codiceFarmacia);
+                    pst.setString(2, listaFarmaci.get(0));
+                    ResultSet rs = pst.executeQuery();
+                    if(!rs.isBeforeFirst()) {
+                      System.out.print("update errato");
+
+                        }
+                    rs.next();
+                    System.out.println("update con successo");
+                    rs.close();
+                    pst.close();
+                    con.close();
+                   
+                }
+                catch(SQLException e) {
+                    System.out.print(e.getMessage());
+                }
+            }
+            catch(ClassNotFoundException e) {
+                System.out.print(e.getMessage());
+            }
+        
+        
+        }
     
     
-    
-       
-    
-    
+    public static void ritiraFarmaciMarca(String paziente, String codicePrescrizione, String codiceFarmacia) {
+              
+            ArrayList<String> listaFarmaci = control.PrescrizioneControl.getListaFarmaci(paziente, codicePrescrizione);
+            PreparedStatement pst;
+            
+             try {
+                Class.forName("org.postgresql.Driver");
+                try(Connection con = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres","postgres","ciao")) {
+                    
+                    pst = con.prepareStatement("UPDATE Farmacia SET quantita_marca = quantita_marca-1 WHERE codice ILIKE ? AND farmaco ILIKE ? ");
+                    pst.clearParameters();
+                    pst.setString(1, codiceFarmacia);
+                    pst.setString(2, listaFarmaci.get(0));
+                    ResultSet rs = pst.executeQuery();
+                    if(!rs.isBeforeFirst()) {
+                      System.out.print("update errato");
+
+                        }
+                    rs.next();
+                    System.out.println("update con successo");
+                    rs.close();
+                    pst.close();
+                    con.close();
+                   
+                }
+                catch(SQLException e) {
+                    System.out.print(e.getMessage());
+                }
+            }
+            catch(ClassNotFoundException e) {
+                System.out.print(e.getMessage());
+            }
+        
+        
+        }
     
     
     

@@ -7,8 +7,6 @@ package control;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -26,7 +24,7 @@ public class MedicoControl {
                     
                     try (Statement st = con.createStatement()) {
                         System.out.print("eseguo update");
-                        st.executeUpdate("UPDATE Prescrizione SET pendente = TRUE where pendente = FALSE ");
+                        st.executeUpdate("UPDATE Prescrizione SET pendente = FALSE where pendente = TRUE ");
                     }
                     con.close();
                 }
@@ -38,12 +36,6 @@ public class MedicoControl {
                 System.out.print(e.getMessage());
             }
         }
-     
-    
 
-    
-        
-    
-    
     
 }
