@@ -41,7 +41,7 @@ public class Medico {
     
     public Medico(String key) {
     
-        
+            System.out.println("oh oh oh ");
             try {
                 Class.forName("org.postgresql.Driver");
                 try(Connection con=DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres","postgres","ciao")) {

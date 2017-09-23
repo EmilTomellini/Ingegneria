@@ -38,10 +38,11 @@ public class MedicoBase extends Medico {
     
     public MedicoBase(String key) {
         super(key);
+        System.out.print("ah ah ah"+key);
         try {
                 Class.forName("org.postgresql.Driver");
                 try(Connection con = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres","postgres","ciao")) {
-                    PreparedStatement pst = con.prepareStatement("SELECT nome_specialistica, data FROM Specialistica WHERE username ILIKE ?");
+                    PreparedStatement pst = con.prepareStatement("SELECT S.nome_specialistica, S.data FROM Specialistica S JOIN Medico M ON M.codice_regionale=S.codice_medico WHERE M.username ILIKE ?");
                     pst.clearParameters();
                     pst.setString(1, key);
                     ResultSet rs = pst.executeQuery();

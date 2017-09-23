@@ -252,7 +252,8 @@ public class FarmaciaControl  {
                 System.out.print(e.getMessage());
             }
         }
-        
+    
+    //forse da cambiare per controllo errore mancanza farmaci
     public static void ritiraFarmaciGenerico(String paziente, String codicePrescrizione, String codiceFarmacia) {
               
             ArrayList<String> listaFarmaci = control.PrescrizioneControl.getListaFarmaci(paziente, codicePrescrizione);

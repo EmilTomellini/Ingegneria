@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package view;
+import java.util.ArrayList;
 
 /**
  *
@@ -41,6 +42,7 @@ public class RitiroView extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jTextField2 = new javax.swing.JTextField();
         jCheckBox1 = new javax.swing.JCheckBox();
+        label1 = new java.awt.Label();
 
         buttonGroup1.add(jRadioButton1);
         buttonGroup1.add(jRadioButton2);
@@ -80,6 +82,8 @@ public class RitiroView extends javax.swing.JFrame {
 
         jCheckBox1.setText("Generico");
 
+        label1.setText("Label errori");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -87,16 +91,19 @@ public class RitiroView extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(30, 30, 30)
-                        .addComponent(jRadioButton1)
-                        .addGap(18, 18, 18)
-                        .addComponent(jRadioButton2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jRadioButton3))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(116, 116, 116)
-                        .addComponent(jButton2)))
-                .addContainerGap(51, Short.MAX_VALUE))
+                        .addComponent(jButton2))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(30, 30, 30)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(label1, javax.swing.GroupLayout.DEFAULT_SIZE, 344, Short.MAX_VALUE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jRadioButton1)
+                                .addGap(18, 18, 18)
+                                .addComponent(jRadioButton2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jRadioButton3)))))
+                .addGap(26, 26, 26))
             .addGroup(layout.createSequentialGroup()
                 .addGap(65, 65, 65)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -123,7 +130,9 @@ public class RitiroView extends javax.swing.JFrame {
                     .addComponent(jRadioButton1)
                     .addComponent(jRadioButton2)
                     .addComponent(jRadioButton3))
-                .addGap(75, 75, 75)
+                .addGap(26, 26, 26)
+                .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(29, 29, 29)
                 .addComponent(jButton2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -158,6 +167,52 @@ public class RitiroView extends javax.swing.JFrame {
     private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
         String numTessera = jTextField1.getText();
         String numPrescrizione = jTextField2.getText();
+        ArrayList<String> codiceFarmacia = control.FarmaciaControl.listaCodiciFarmacie();
+        if(control.PrescrizioneControl.checkUsoPrescrizione(numPrescrizione)) {
+        if(jRadioButton1.isSelected()) {
+           
+            if(jCheckBox1.isSelected()) {
+                control.FarmaciaControl.ritiraFarmaciGenerico(numTessera, numPrescrizione, codiceFarmacia.get(1));
+                control.PrescrizioneControl.setUsoPrescrizione(numTessera, true);
+                }
+            else {
+                control.FarmaciaControl.ritiraFarmaciMarca(numTessera, numPrescrizione, codiceFarmacia.get(1));
+                control.PrescrizioneControl.setUsoPrescrizione(numTessera, false);
+                }    
+            }    
+        else if(jRadioButton2.isSelected()) {
+            
+            if(jCheckBox1.isSelected()) {
+                control.FarmaciaControl.ritiraFarmaciGenerico(numTessera, numPrescrizione, codiceFarmacia.get(2));
+                control.PrescrizioneControl.setUsoPrescrizione(numTessera, true);
+                }
+            else {
+                control.FarmaciaControl.ritiraFarmaciMarca(numTessera, numPrescrizione, codiceFarmacia.get(1));
+                control.PrescrizioneControl.setUsoPrescrizione(numTessera, false);
+                }
+        
+            }
+        else if(jRadioButton3.isSelected()) {
+            
+            if(jCheckBox1.isSelected()) {
+                control.FarmaciaControl.ritiraFarmaciGenerico(numTessera, numPrescrizione, codiceFarmacia.get(3));
+                control.PrescrizioneControl.setUsoPrescrizione(numTessera, true);
+                }
+            else {
+                control.FarmaciaControl.ritiraFarmaciMarca(numTessera, numPrescrizione, codiceFarmacia.get(1));
+                control.PrescrizioneControl.setUsoPrescrizione(numTessera, false);
+                }
+              
+            }
+        else {
+            System.out.print("errore farmacia non selezionata");
+            } 
+        }
+        else {
+            System.out.print("prescrizione già usata");
+        
+        }
+            
         
     }//GEN-LAST:event_jButton2MouseClicked
 
@@ -174,5 +229,6 @@ public class RitiroView extends javax.swing.JFrame {
     private javax.swing.JRadioButton jRadioButton3;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
+    private java.awt.Label label1;
     // End of variables declaration//GEN-END:variables
 }
