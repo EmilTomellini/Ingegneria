@@ -32,24 +32,6 @@ public class Paziente {
     private ArrayList<String> fattoriDiRischio;
     
     
-    public Paziente(String username,String psw, String codiceUnivoco, String cognome, String nome, Date dataDiNascita, String luogoDiNascita, String indirizzo, String codiceMedico, 
-                            boolean cronico, ArrayList<String> fattoriDiRischio) {
-    
-        this.username=username;
-        this.psw=psw;
-        this.codiceUnivoco=codiceUnivoco;
-        this.cognome=cognome;
-        this.nome=nome;
-        this.dataDiNascita=dataDiNascita;
-        this.luogoDiNascita=luogoDiNascita;
-        this.indirizzo=indirizzo;
-        this.codiceMedico=codiceMedico;
-        this.cronico=cronico;
-        this.fattoriDiRischio=fattoriDiRischio;
-    
-    }
-    
-    
     public Paziente(String key) {
            try { 
                   Class.forName("org.postgresql.Driver");

@@ -83,7 +83,17 @@ public class Farmaco {
             }
     }
     
+   public String prezzo(){
+      
+       Float price = this.prezzo;
+       return price.toString();
+   }
+    
+     public float prezzoF(){
+      
+       return this.prezzo;
+
+   }
    
-    
-    
+   
 }

@@ -12,6 +12,7 @@ import java.sql.Statement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import model.Farmaco;
 
 /**
  *
@@ -320,7 +321,21 @@ public class FarmaciaControl  {
         
         }
     
-    
+    public static String scontrino(String codicePrescrizione, String paziente){
+        
+        String s= new String("");
+        int totale=0;
+        ArrayList<String> listaFarmaci = control.PrescrizioneControl.getListaFarmaci(paziente, codicePrescrizione);
+        
+        s="Paziente: "+paziente+"\n"+"Prescrizione numero: "+codicePrescrizione+"\n";
+        for (String far: listaFarmaci) {
+            Farmaco farmaco= new Farmaco(far);
+            s+=far+" prezzo "+farmaco.prezzo();
+            totale+=farmaco.prezzoF();
+        }
+        s+="\n Totale: "+totale;
+        return s;
+    }
     
     
     

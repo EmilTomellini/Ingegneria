@@ -4,6 +4,8 @@
  * and open the template in the editor.
  */
 package view;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 /**
@@ -212,7 +214,15 @@ public class RitiroView extends javax.swing.JFrame {
             System.out.print("prescrizione già usata");
         
         }
-            
+          //aggiungere stampa scontrino  
+          try{
+            String scontrino= "scontrino"+pz.getCodice()+".txt";
+            PrintWriter writer = new PrintWriter(scontrino, "UTF-8");
+            writer.println(control.FarmaciaControl.scontrino(numPrescrizione, numTessera));
+            writer.close();
+           } catch (IOException e) {
+                System.out.println(e.getMessage());
+        }
         
     }//GEN-LAST:event_jButton2MouseClicked
 

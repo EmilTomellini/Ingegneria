@@ -7,7 +7,6 @@ package view;
 
 import model.*;
 import java.awt.Color;
-import java.awt.Font;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -162,7 +161,7 @@ public class Login extends javax.swing.JFrame {
             char[] psw = Psw.getPassword();
             String password = new String(psw);
             
-            //aggiunto try perché cagacazzi il programma
+            
             try {
                 switch(control.LoginControl.authenticator(user, psw)){
                     case -1:                   
