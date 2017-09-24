@@ -140,7 +140,9 @@ public class MedicoBaseView extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1MouseClicked
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
+        this.setVisible(false);
+        FarmaciView rv = new FarmaciView(mb.getCodiceRegionale());
+        rv.setVisible(true);
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void CompilaPrescrizioneMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CompilaPrescrizioneMouseClicked

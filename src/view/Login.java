@@ -20,9 +20,10 @@ public class Login extends javax.swing.JFrame {
     
     
     public static PazienteView pv;
-    public static PazienteView mbv;
-    public static PazienteView mv;
-    public static PazienteView fv;
+    public static MedicoBaseView mbv;
+    public static MedicoView mv;
+    public static FarmaciaView fv;
+    
     public static boolean occupied=false;
     /**
      * Creates new form Login
@@ -181,14 +182,14 @@ public class Login extends javax.swing.JFrame {
                         Error.setVisible(false); 
                         //System.out.print(password);
                         model.Farmacia fm = new model.Farmacia(password);
-                        FarmaciaView fv = new FarmaciaView(fm);
+                        fv = new FarmaciaView(fm);
                         fv.setVisible(true);
                         System.out.print("1");
                         break;
                     case 2://medico base
                         occupied=true;
                         model.MedicoBase mb = new model.MedicoBase(user);
-                        MedicoBaseView mbv = new MedicoBaseView(mb);
+                        mbv = new MedicoBaseView(mb);
                         mbv.setVisible(true);
                         Error.setVisible(false);
                         System.out.print("2");
@@ -196,7 +197,7 @@ public class Login extends javax.swing.JFrame {
                     case 3://medico
                         Error.setVisible(false);
                         model.Medico m = new model.Medico(user);
-                        MedicoView mv = new MedicoView(m);
+                        mv = new MedicoView(m);
                         mv.setVisible(true);
                         System.out.print("3");
                         break;

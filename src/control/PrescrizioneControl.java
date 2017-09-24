@@ -229,33 +229,38 @@ public class PrescrizioneControl {
                java.util.Date modified = calendar.getTime();
                java.sql.Date sqlToday = new java.sql.Date(today.getTime());
                java.sql.Date sqlModified = new java.sql.Date(modified.getTime());
-               
+              
                
                ArrayList<String> farmaci = FarmacoControl.getListaFarmaci();
                for (String s:farmaci){
-                   result.put(s,0);
+                   result.put(s,new Integer(0));
                }
+               
+                System.out.println(result.toString());
        try{
             Class.forName("org.postgresql.Driver");
                 try(Connection con = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres","postgres","ciao")) {
-                 PreparedStatement pst = con.prepareStatement("SELECT farmaco0 from Prescrizione Where codice_paziente = ? And usata = true And generici= true AND (data_emissione BETWEEN (? AND ?))");
+                 PreparedStatement pst = con.prepareStatement("SELECT farmaco0 from Prescrizione Where codice_paziente = ? And usata = true AND (data_emissione BETWEEN ? AND ?)");
                     pst.clearParameters();
                     pst.setString(1, codicePaziente);
                     pst.setDate(2, sqlModified);
                     pst.setDate(3, sqlToday);
+                    
                     ResultSet rs = pst.executeQuery();
                     while (rs.next()){
                         String farmaco = rs.getString("farmaco0");
                         
                         if (result.containsKey(farmaco)){
-                            int i = result.get(farmaco);
-                            result.put(farmaco, i++);
+                            Integer i = result.get(farmaco);
+                            result.put(farmaco, i.intValue()+1);
                         }
    
                         
                     }
                     
-                    pst = con.prepareStatement("SELECT farmaco1 from Prescrizione Where codice_paziente = ? And usata = true And generici= true AND (data_emissione BETWEEN (? AND ?))");
+                    System.out.println(result.toString());
+                    
+                    pst = con.prepareStatement("SELECT farmaco1 from Prescrizione Where codice_paziente = ? And usata = true AND (data_emissione BETWEEN ? AND ?)");
                     pst.clearParameters();
                     pst.setString(1, codicePaziente);
                     pst.setDate(2, sqlModified);
@@ -265,13 +270,14 @@ public class PrescrizioneControl {
                         String farmaco = rs.getString("farmaco1");
                         
                         if (result.containsKey(farmaco)){
-                            int i = result.get(farmaco);
-                            result.put(farmaco, i++);
+                            Integer i = result.get(farmaco);
+                            result.put(farmaco, i.intValue()+1);
                         }
    
                         
+                        
                     }
-                        pst = con.prepareStatement("SELECT farmaco2 from Prescrizione Where codice_paziente = ? And usata = true And generici= true AND (data_emissione BETWEEN (? AND ?))");
+                        pst = con.prepareStatement("SELECT farmaco2 from Prescrizione Where codice_paziente = ? And usata = true AND (data_emissione BETWEEN ? AND ?)");
                     pst.clearParameters();
                     pst.setString(1, codicePaziente);
                     pst.setDate(2, sqlModified);
@@ -281,13 +287,14 @@ public class PrescrizioneControl {
                         String farmaco = rs.getString("farmaco2");
                         
                         if (result.containsKey(farmaco)){
-                            int i = result.get(farmaco);
-                            result.put(farmaco, i++);
+                            Integer i = result.get(farmaco);
+                            result.put(farmaco, i.intValue()+1);
                         }
    
                         
+                        
                     }
-                        pst = con.prepareStatement("SELECT farmaco3 from Prescrizione Where codice_paziente = ? And usata = true And generici= true AND (data_emissione BETWEEN (? AND ?))");
+                        pst = con.prepareStatement("SELECT farmaco3 from Prescrizione Where codice_paziente = ? And usata = true AND (data_emissione BETWEEN ? AND ?)");
                     pst.clearParameters();
                     pst.setString(1, codicePaziente);
                     pst.setDate(2, sqlModified);
@@ -297,13 +304,13 @@ public class PrescrizioneControl {
                         String farmaco = rs.getString("farmaco3");
                         
                         if (result.containsKey(farmaco)){
-                            int i = result.get(farmaco);
-                            result.put(farmaco, i++);
+                            Integer i = result.get(farmaco);
+                            result.put(farmaco, i.intValue()+1);
                         }
    
-                        
+                              
                     }
-                        pst = con.prepareStatement("SELECT farmaco4 from Prescrizione Where  codice_paziente = ? And usata = true And generici= true AND (data_emissione BETWEEN (? AND ?))");
+                        pst = con.prepareStatement("SELECT farmaco4 from Prescrizione Where  codice_paziente = ? And usata = true AND (data_emissione BETWEEN ? AND ?)");
                     pst.clearParameters();
                     pst.setString(1, codicePaziente);
                     pst.setDate(2, sqlModified);
@@ -313,8 +320,139 @@ public class PrescrizioneControl {
                         String farmaco = rs.getString("farmaco4");
                         
                         if (result.containsKey(farmaco)){
-                            int i = result.get(farmaco);
-                            result.put(farmaco, i++);
+                            Integer i = result.get(farmaco);
+                            result.put(farmaco, i.intValue()+1);
+                        }
+   
+                        
+                    }
+
+                    rs.close();
+                    pst.close();
+                    con.close();
+                    
+                }
+                catch(SQLException e) {
+                    System.out.print(e.getMessage());
+                }
+            }
+            catch(ClassNotFoundException e) {
+                System.out.print(e.getMessage());
+            }
+            
+    return result;
+        
+    } 
+      
+      
+      
+      
+      
+      
+      
+     public static HashMap<String, Integer> farmaciPeriodo(String codiceDottore, int data){
+        
+               HashMap<String, Integer> result = new HashMap<>();
+               Calendar calendar = Calendar.getInstance();
+               java.util.Date today = calendar.getTime();
+               calendar.add(Calendar.MONTH, -data);
+               java.util.Date modified = calendar.getTime();
+               java.sql.Date sqlToday = new java.sql.Date(today.getTime());
+               java.sql.Date sqlModified = new java.sql.Date(modified.getTime());
+              
+               
+               ArrayList<String> farmaci = FarmacoControl.getListaFarmaci();
+               for (String s:farmaci){
+                   result.put(s,new Integer(0));
+               }
+               
+                System.out.println(result.toString());
+       try{
+            Class.forName("org.postgresql.Driver");
+                try(Connection con = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres","postgres","ciao")) {
+                 PreparedStatement pst = con.prepareStatement("SELECT farmaco0 from Prescrizione pr join Paziente pa on pa.codice_univoco=pr.codice_paziente  Where pa.codice_medico = ? And usata = true AND (data_emissione BETWEEN ? AND ?)");
+                    pst.clearParameters();
+                    pst.setString(1, codiceDottore);
+                    pst.setDate(2, sqlModified);
+                    pst.setDate(3, sqlToday);
+                    System.out.print(pst);
+                    ResultSet rs = pst.executeQuery();
+                    while (rs.next()){
+                        String farmaco = rs.getString("farmaco0");
+                        
+                        if (result.containsKey(farmaco)){
+                            Integer i = result.get(farmaco);
+                            result.put(farmaco, i.intValue()+1);
+                        }
+   
+                        
+                    }
+                    
+                    System.out.println(result.toString());
+                    
+                    pst = con.prepareStatement("SELECT farmaco1 from Prescrizione pr join Paziente pa on pa.codice_univoco=pr.codice_paziente  Where pa.codice_medico = ? And usata = true AND (data_emissione BETWEEN ? AND ?)");
+                    pst.clearParameters();
+                    pst.setString(1, codiceDottore);
+                    pst.setDate(2, sqlModified);
+                    pst.setDate(3, sqlToday);
+                    
+                    rs = pst.executeQuery();
+                    while (rs.next()){
+                        String farmaco = rs.getString("farmaco1");
+                        
+                        if (result.containsKey(farmaco)){
+                            Integer i = result.get(farmaco);
+                            result.put(farmaco, i.intValue()+1);
+                        }
+   
+                        
+                        
+                    }
+                        pst = con.prepareStatement("SELECT farmaco2 from Prescrizione pr join Paziente pa on pa.codice_univoco=pr.codice_paziente  Where pa.codice_medico = ? And usata = true AND (data_emissione BETWEEN ? AND ?)");
+                    pst.clearParameters();
+                    pst.setString(1, codiceDottore);
+                    pst.setDate(2, sqlModified);
+                    pst.setDate(3, sqlToday);
+                    rs = pst.executeQuery();
+                    while (rs.next()){
+                        String farmaco = rs.getString("farmaco2");
+                        
+                        if (result.containsKey(farmaco)){
+                            Integer i = result.get(farmaco);
+                            result.put(farmaco, i.intValue()+1);
+                        }
+   
+                        
+                        
+                    }
+                        pst = con.prepareStatement("SELECT farmaco3 from Prescrizione pr join Paziente pa on pa.codice_univoco=pr.codice_paziente  Where pa.codice_medico = ? And usata = true AND (data_emissione BETWEEN ? AND ?)");
+                    pst.clearParameters();
+                    pst.setString(1, codiceDottore);
+                    pst.setDate(2, sqlModified);
+                    pst.setDate(3, sqlToday);
+                    rs = pst.executeQuery();
+                    while (rs.next()){
+                        String farmaco = rs.getString("farmaco3");
+                        
+                        if (result.containsKey(farmaco)){
+                            Integer i = result.get(farmaco);
+                            result.put(farmaco, i.intValue()+1);
+                        }
+   
+                              
+                    }
+                        pst = con.prepareStatement("SELECT farmaco4 from Prescrizione pr join Paziente pa on pa.codice_univoco=pr.codice_paziente  Where pa.codice_medico = ? And usata = true AND (data_emissione BETWEEN ? AND ?)");
+                    pst.clearParameters();
+                    pst.setString(1, codiceDottore);
+                    pst.setDate(2, sqlModified);
+                    pst.setDate(3, sqlToday);
+                    rs = pst.executeQuery();
+                    while (rs.next()){
+                        String farmaco = rs.getString("farmaco4");
+                        
+                        if (result.containsKey(farmaco)){
+                            Integer i = result.get(farmaco);
+                            result.put(farmaco, i.intValue()+1);
                         }
    
                         

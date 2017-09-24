@@ -38,7 +38,9 @@ public class FarmaciPazienteView extends javax.swing.JFrame {
         jButton5 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(700, 500));
+        setResizable(false);
 
         jButton1.setText("Annuale");
         jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -92,10 +94,6 @@ public class FarmaciPazienteView extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton5)
-                .addGap(46, 46, 46))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
@@ -117,6 +115,10 @@ public class FarmaciPazienteView extends javax.swing.JFrame {
                             .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jTextField1))))
                 .addGap(59, 59, 59))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jButton5)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -133,9 +135,9 @@ public class FarmaciPazienteView extends javax.swing.JFrame {
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 171, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(31, 31, 31)
                 .addComponent(jButton5)
-                .addGap(30, 30, 30))
+                .addContainerGap())
         );
 
         pack();
@@ -153,6 +155,7 @@ public class FarmaciPazienteView extends javax.swing.JFrame {
         String paziente = jTextField1.getText();
         int i = 12;
         HashMap<String, Integer> result = control.PrescrizioneControl.farmaciPazienti(paziente, i);
+        jLabel2.setText(result.toString());
     }//GEN-LAST:event_jButton1MouseClicked
 
     private void jButton5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton5MouseClicked
@@ -164,18 +167,21 @@ public class FarmaciPazienteView extends javax.swing.JFrame {
         String paziente = jTextField1.getText();
         int i = 6;
         HashMap<String, Integer> result = control.PrescrizioneControl.farmaciPazienti(paziente, i);
+        jLabel2.setText(result.toString());
     }//GEN-LAST:event_jButton2MouseClicked
 
     private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
         String paziente = jTextField1.getText();
         int i = 3;
         HashMap<String, Integer> result = control.PrescrizioneControl.farmaciPazienti(paziente, i);
+        jLabel2.setText(result.toString());
     }//GEN-LAST:event_jButton3MouseClicked
 
     private void jButton4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton4MouseClicked
         String paziente = jTextField1.getText();
         int i = 1;
         HashMap<String, Integer> result = control.PrescrizioneControl.farmaciPazienti(paziente, i);
+        jLabel2.setText(result.toString());
     }//GEN-LAST:event_jButton4MouseClicked
 
 
