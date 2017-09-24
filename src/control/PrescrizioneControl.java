@@ -10,6 +10,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.HashMap;
+
 
 /**
  *
@@ -18,7 +21,7 @@ import java.util.ArrayList;
 public class PrescrizioneControl {
     
     public static ArrayList<String> getListaFarmaci(String codicePaziente, String codicePrescrizione) {
-        String s = new String();
+        
         ArrayList<String> lista = new ArrayList<String>();
             try {
                 Class.forName("org.postgresql.Driver");
@@ -37,22 +40,22 @@ public class PrescrizioneControl {
                     while(rs.next()) {
                         lista.add(rs.getString("farmaco0"));
                         
-                        if(rs.getString("farmaco1").equals(s))
+                        if(rs.getString("farmaco1") == null)
                             break;
                         else
                             lista.add(rs.getString("farmaco1"));
                         
-                        if(rs.getString("farmaco2").equals(s))
+                        if(rs.getString("farmaco2") == null)
                             break;
                         else
                             lista.add(rs.getString("farmaco2"));
                         
-                        if(rs.getString("farmaco3").equals(s))
+                        if(rs.getString("farmaco3") == null)
                             break;
                         else
                             lista.add(rs.getString("farmaco3"));
                         
-                        if(rs.getString("farmaco4").equals(s))
+                        if(rs.getString("farmaco4") == null)
                             break;
                         else
                             lista.add(rs.getString("farmaco4"));
@@ -96,6 +99,7 @@ public class PrescrizioneControl {
                     rs.close();
                     pst.close();
                     con.close();
+                    return true;
                 }
                 catch(SQLException e) {
                     System.out.print(e.getMessage());
@@ -119,30 +123,20 @@ public class PrescrizioneControl {
                     PreparedStatement pst = con.prepareStatement("UPDATE prescrizione SET usata = TRUE WHERE codice = ?");
                     pst.clearParameters();
                     pst.setInt(1, Integer.parseInt(codice));
-                    ResultSet rs = pst.executeQuery();
+                    pst.executeUpdate();
                     
                     pst = con.prepareStatement("UPDATE prescrizione SET data_uso = ? WHERE codice = ?");
                     pst.clearParameters();
                     pst.setDate(1, sqlDate);
                     pst.setInt(2, Integer.parseInt(codice));
-                    rs = pst.executeQuery();
+                    pst.executeUpdate();
                     
                     pst = con.prepareStatement("UPDATE prescrizione SET generici = ? WHERE codice = ?");
                     pst.clearParameters();
                     pst.setBoolean(1, generico);
                     pst.setInt(2, Integer.parseInt(codice));
-                    rs = pst.executeQuery();
+                    pst.executeUpdate();
                     
-                    
-                    if(!rs.isBeforeFirst()) {
-                      System.out.print("Farmaco non esistente");
-                        rs.close();
-                        pst.close();
-                        con.close();
-                        }
-                    rs.next();
-                    System.out.println("Faramco esitente");
-                    rs.close();
                     pst.close();
                     con.close();
                 }
@@ -155,5 +149,193 @@ public class PrescrizioneControl {
             }
             
         }
+    public static String prescrizoniUso (String codicePaziente){
+        
+               String result=new String("");
+       try{
+            Class.forName("org.postgresql.Driver");
+                try(Connection con = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres","postgres","ciao")) {
+                 PreparedStatement pst = con.prepareStatement("SELECT codice from Prescrizione Where codice_paziente = ? And usata = false and ritirata=true" );
+                    pst.clearParameters();
+                    pst.setString(1, codicePaziente);
+                    ResultSet rs = pst.executeQuery();
+                    if(!rs.isBeforeFirst()) {
+                      System.out.print("Errore faramco inisistente");     
+                        }
+                    
+                    while (rs.next()){
+                        result=result + " " + ( rs.getString("codice") );
+                    }
+                    rs.close();
+                    pst.close();
+                    con.close();
+                    
+                }
+                catch(SQLException e) {
+                    System.out.print(e.getMessage());
+                }
+            }
+            catch(ClassNotFoundException e) {
+                System.out.print(e.getMessage());
+            }
+            
+    return result;
+        
+    }
+    
+    
+    
+    public static String usoGenerico (String codicePaziente){
+        
+               String result=new String("");
+       try{
+            Class.forName("org.postgresql.Driver");
+                try(Connection con = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres","postgres","ciao")) {
+                 PreparedStatement pst = con.prepareStatement("SELECT codice from Prescrizione Where codice_paziente = ? And usata = true And generici= true");
+                    pst.clearParameters();
+                    pst.setString(1, codicePaziente);
+                    ResultSet rs = pst.executeQuery();
+                    if(!rs.isBeforeFirst()) {
+                      System.out.print("Errore faramco inisistente");     
+                        }
+                    
+                    while (rs.next()){
+                        result=result + " " + ( rs.getString("codice") );
+                    }
+                    rs.close();
+                    pst.close();
+                    con.close();
+                    
+                }
+                catch(SQLException e) {
+                    System.out.print(e.getMessage());
+                }
+            }
+            catch(ClassNotFoundException e) {
+                System.out.print(e.getMessage());
+            }
+            
+    return result;
+        
+    } 
+    
+    
+      public static HashMap<String, Integer> farmaciPazienti(String codicePaziente, int data){
+        
+               HashMap<String, Integer> result = new HashMap<>();
+               Calendar calendar = Calendar.getInstance();
+               java.util.Date today = calendar.getTime();
+               calendar.add(Calendar.MONTH, -data);
+               java.util.Date modified = calendar.getTime();
+               java.sql.Date sqlToday = new java.sql.Date(today.getTime());
+               java.sql.Date sqlModified = new java.sql.Date(modified.getTime());
+               
+               
+               ArrayList<String> farmaci = FarmacoControl.getListaFarmaci();
+               for (String s:farmaci){
+                   result.put(s,0);
+               }
+       try{
+            Class.forName("org.postgresql.Driver");
+                try(Connection con = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres","postgres","ciao")) {
+                 PreparedStatement pst = con.prepareStatement("SELECT farmaco0 from Prescrizione Where codice_paziente = ? And usata = true And generici= true AND (data_emissione BETWEEN (? AND ?))");
+                    pst.clearParameters();
+                    pst.setString(1, codicePaziente);
+                    pst.setDate(2, sqlModified);
+                    pst.setDate(3, sqlToday);
+                    ResultSet rs = pst.executeQuery();
+                    while (rs.next()){
+                        String farmaco = rs.getString("farmaco0");
+                        
+                        if (result.containsKey(farmaco)){
+                            int i = result.get(farmaco);
+                            result.put(farmaco, i++);
+                        }
+   
+                        
+                    }
+                    
+                    pst = con.prepareStatement("SELECT farmaco1 from Prescrizione Where codice_paziente = ? And usata = true And generici= true AND (data_emissione BETWEEN (? AND ?))");
+                    pst.clearParameters();
+                    pst.setString(1, codicePaziente);
+                    pst.setDate(2, sqlModified);
+                    pst.setDate(3, sqlToday);
+                    rs = pst.executeQuery();
+                    while (rs.next()){
+                        String farmaco = rs.getString("farmaco1");
+                        
+                        if (result.containsKey(farmaco)){
+                            int i = result.get(farmaco);
+                            result.put(farmaco, i++);
+                        }
+   
+                        
+                    }
+                        pst = con.prepareStatement("SELECT farmaco2 from Prescrizione Where codice_paziente = ? And usata = true And generici= true AND (data_emissione BETWEEN (? AND ?))");
+                    pst.clearParameters();
+                    pst.setString(1, codicePaziente);
+                    pst.setDate(2, sqlModified);
+                    pst.setDate(3, sqlToday);
+                    rs = pst.executeQuery();
+                    while (rs.next()){
+                        String farmaco = rs.getString("farmaco2");
+                        
+                        if (result.containsKey(farmaco)){
+                            int i = result.get(farmaco);
+                            result.put(farmaco, i++);
+                        }
+   
+                        
+                    }
+                        pst = con.prepareStatement("SELECT farmaco3 from Prescrizione Where codice_paziente = ? And usata = true And generici= true AND (data_emissione BETWEEN (? AND ?))");
+                    pst.clearParameters();
+                    pst.setString(1, codicePaziente);
+                    pst.setDate(2, sqlModified);
+                    pst.setDate(3, sqlToday);
+                    rs = pst.executeQuery();
+                    while (rs.next()){
+                        String farmaco = rs.getString("farmaco3");
+                        
+                        if (result.containsKey(farmaco)){
+                            int i = result.get(farmaco);
+                            result.put(farmaco, i++);
+                        }
+   
+                        
+                    }
+                        pst = con.prepareStatement("SELECT farmaco4 from Prescrizione Where  codice_paziente = ? And usata = true And generici= true AND (data_emissione BETWEEN (? AND ?))");
+                    pst.clearParameters();
+                    pst.setString(1, codicePaziente);
+                    pst.setDate(2, sqlModified);
+                    pst.setDate(3, sqlToday);
+                    rs = pst.executeQuery();
+                    while (rs.next()){
+                        String farmaco = rs.getString("farmaco4");
+                        
+                        if (result.containsKey(farmaco)){
+                            int i = result.get(farmaco);
+                            result.put(farmaco, i++);
+                        }
+   
+                        
+                    }
+
+                    rs.close();
+                    pst.close();
+                    con.close();
+                    
+                }
+                catch(SQLException e) {
+                    System.out.print(e.getMessage());
+                }
+            }
+            catch(ClassNotFoundException e) {
+                System.out.print(e.getMessage());
+            }
+            
+    return result;
+        
+    } 
+    
     
 }

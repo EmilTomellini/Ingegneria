@@ -263,18 +263,15 @@ public class FarmaciaControl  {
                 Class.forName("org.postgresql.Driver");
                 try(Connection con = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres","postgres","ciao")) {
                     
+                    
                     pst = con.prepareStatement("UPDATE Farmacia SET quantita_generico = quantita_generico-1 WHERE codice ILIKE ? AND farmaco ILIKE ? ");
                     pst.clearParameters();
                     pst.setString(1, codiceFarmacia);
-                    pst.setString(2, listaFarmaci.get(0));
-                    ResultSet rs = pst.executeQuery();
-                    if(!rs.isBeforeFirst()) {
-                      System.out.print("update errato");
-
-                        }
-                    rs.next();
-                    System.out.println("update con successo");
-                    rs.close();
+                    
+                    for(int i=0;i<listaFarmaci.size();i++){
+                        pst.setString(2, listaFarmaci.get(i));
+                        pst.executeUpdate();
+                    }
                     pst.close();
                     con.close();
                    
@@ -303,15 +300,11 @@ public class FarmaciaControl  {
                     pst = con.prepareStatement("UPDATE Farmacia SET quantita_marca = quantita_marca-1 WHERE codice ILIKE ? AND farmaco ILIKE ? ");
                     pst.clearParameters();
                     pst.setString(1, codiceFarmacia);
-                    pst.setString(2, listaFarmaci.get(0));
-                    ResultSet rs = pst.executeQuery();
-                    if(!rs.isBeforeFirst()) {
-                      System.out.print("update errato");
-
-                        }
-                    rs.next();
-                    System.out.println("update con successo");
-                    rs.close();
+                    
+                    for(int i=0;i<listaFarmaci.size();i++){
+                         pst.setString(2, listaFarmaci.get(i));
+                         pst.executeUpdate();
+                    }
                     pst.close();
                     con.close();
                    

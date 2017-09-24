@@ -20,6 +20,9 @@ public class Login extends javax.swing.JFrame {
     
     
     public static PazienteView pv;
+    public static PazienteView mbv;
+    public static PazienteView mv;
+    public static PazienteView fv;
     public static boolean occupied=false;
     /**
      * Creates new form Login

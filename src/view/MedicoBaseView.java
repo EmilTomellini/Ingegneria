@@ -6,6 +6,7 @@
 package view;
 import model.MedicoBase.*;
 import model.Medico.*;
+import static view.Login.pv;
 
 /**
  *
@@ -60,6 +61,11 @@ public class MedicoBaseView extends javax.swing.JFrame {
         });
 
         jButton3.setText("Lista reazioni avverse");
+        jButton3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton3MouseClicked(evt);
+            }
+        });
 
         jButton4.setText("Richiesta lista farmaci");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
@@ -69,8 +75,18 @@ public class MedicoBaseView extends javax.swing.JFrame {
         });
 
         jButton5.setText("Verifica informazioni paziente");
+        jButton5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton5MouseClicked(evt);
+            }
+        });
 
         jButton6.setText("Verfica prescrizioni farmaci");
+        jButton6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton6MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -131,7 +147,27 @@ public class MedicoBaseView extends javax.swing.JFrame {
         control.MedicoControl.effettuaPrescrizioni();
     }//GEN-LAST:event_CompilaPrescrizioneMouseClicked
 
+    private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
+        this.setVisible(false);
+        ReazioniView rv = new ReazioniView();
+        rv.setVisible(true);
+        
+        
+    }//GEN-LAST:event_jButton3MouseClicked
 
+    private void jButton6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton6MouseClicked
+        this.setVisible(false);
+        VerificaView vv = new VerificaView();
+        vv.setVisible(true);
+    }//GEN-LAST:event_jButton6MouseClicked
+
+    private void jButton5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton5MouseClicked
+        this.setVisible(false);
+        FarmaciPazienteView fmv = new FarmaciPazienteView();
+        fmv.setVisible(true);
+    }//GEN-LAST:event_jButton5MouseClicked
+
+         
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton CompilaPrescrizione;

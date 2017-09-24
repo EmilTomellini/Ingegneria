@@ -48,7 +48,7 @@ public class RitiroView extends javax.swing.JFrame {
         buttonGroup1.add(jRadioButton2);
         buttonGroup1.add(jRadioButton3);
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setResizable(false);
 
         jButton1.setText("ESCI");
@@ -172,35 +172,35 @@ public class RitiroView extends javax.swing.JFrame {
         if(jRadioButton1.isSelected()) {
            
             if(jCheckBox1.isSelected()) {
-                control.FarmaciaControl.ritiraFarmaciGenerico(numTessera, numPrescrizione, codiceFarmacia.get(1));
-                control.PrescrizioneControl.setUsoPrescrizione(numTessera, true);
+                control.FarmaciaControl.ritiraFarmaciGenerico(numTessera, numPrescrizione, codiceFarmacia.get(0));
+                control.PrescrizioneControl.setUsoPrescrizione(numPrescrizione, true);
                 }
             else {
-                control.FarmaciaControl.ritiraFarmaciMarca(numTessera, numPrescrizione, codiceFarmacia.get(1));
-                control.PrescrizioneControl.setUsoPrescrizione(numTessera, false);
+                control.FarmaciaControl.ritiraFarmaciMarca(numTessera, numPrescrizione, codiceFarmacia.get(0));
+                control.PrescrizioneControl.setUsoPrescrizione(numPrescrizione, false);
                 }    
             }    
         else if(jRadioButton2.isSelected()) {
             
             if(jCheckBox1.isSelected()) {
-                control.FarmaciaControl.ritiraFarmaciGenerico(numTessera, numPrescrizione, codiceFarmacia.get(2));
-                control.PrescrizioneControl.setUsoPrescrizione(numTessera, true);
+                control.FarmaciaControl.ritiraFarmaciGenerico(numTessera, numPrescrizione, codiceFarmacia.get(1));
+                control.PrescrizioneControl.setUsoPrescrizione(numPrescrizione, true);
                 }
             else {
                 control.FarmaciaControl.ritiraFarmaciMarca(numTessera, numPrescrizione, codiceFarmacia.get(1));
-                control.PrescrizioneControl.setUsoPrescrizione(numTessera, false);
+                control.PrescrizioneControl.setUsoPrescrizione(numPrescrizione, false);
                 }
         
             }
         else if(jRadioButton3.isSelected()) {
             
             if(jCheckBox1.isSelected()) {
-                control.FarmaciaControl.ritiraFarmaciGenerico(numTessera, numPrescrizione, codiceFarmacia.get(3));
-                control.PrescrizioneControl.setUsoPrescrizione(numTessera, true);
+                control.FarmaciaControl.ritiraFarmaciGenerico(numTessera, numPrescrizione, codiceFarmacia.get(2));
+                control.PrescrizioneControl.setUsoPrescrizione(numPrescrizione, true);
                 }
             else {
-                control.FarmaciaControl.ritiraFarmaciMarca(numTessera, numPrescrizione, codiceFarmacia.get(1));
-                control.PrescrizioneControl.setUsoPrescrizione(numTessera, false);
+                control.FarmaciaControl.ritiraFarmaciMarca(numTessera, numPrescrizione, codiceFarmacia.get(2));
+                control.PrescrizioneControl.setUsoPrescrizione(numPrescrizione, false);
                 }
               
             }
