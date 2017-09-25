@@ -84,7 +84,7 @@ public class RitiroView extends javax.swing.JFrame {
 
         jCheckBox1.setText("Generico");
 
-        label1.setText("Label errori");
+        label1.setText("");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -216,11 +216,12 @@ public class RitiroView extends javax.swing.JFrame {
         }
           //aggiungere stampa scontrino  
           try{
-            String scontrino= "scontrino"+pz.getCodice()+".txt";
+            String scontrino= "/Users/emil/Documents/scontrini/scontrino"+pz.getCodice()+".txt";
             PrintWriter writer = new PrintWriter(scontrino, "UTF-8");
             writer.println(control.FarmaciaControl.scontrino(numPrescrizione, numTessera));
             writer.close();
-           } catch (IOException e) {
+           }
+          catch (IOException e) {
                 System.out.println(e.getMessage());
         }
         

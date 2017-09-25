@@ -40,33 +40,33 @@ public class Farmaco {
                  if(!rs.isBeforeFirst()) {
                       System.out.print("Farmaco non trovato");
                   }
-                 rs.next();
+                rs.next();
                 this.nome=rs.getString("nome");
-                this.prezzo=rs.getFloat("prezzo");
-                this.formato=rs.getString("formato");
-                this.controIndicazioni=rs.getString("controIndicazioni");
-                this.classeAtc=rs.getString("classeAtc");
+                this.prezzo=rs.getFloat("costo");
+                this.formato=rs.getString("forma_farmaceutica");
+                this.controIndicazioni=rs.getString("controindicazioni");
+                this.classeAtc=rs.getString("classe_atc");
                                 
-                pst = con.prepareStatement("SELECT * FROM principio_attivo WHERE nome ILIKE ?");
+                pst = con.prepareStatement("SELECT * FROM principio_attivo WHERE farmaco ILIKE ?");
                 pst.clearParameters();
                 pst.setString(1, key);
                 rs = pst.executeQuery();
                  if(!rs.isBeforeFirst()) {
                       System.out.print("Farmaco non trovato");
                   }
-                  rs.next();
+                rs.next();
                 this.principioAttivo=rs.getString("nome");
                 this.descrizionePrincipio=rs.getString("descrizione");
                 this.effettoPrincio=rs.getString("effetto");
                 
-                pst = con.prepareStatement("SELECT * FROM quantita WHERE nome ILIKE ?");
+                pst = con.prepareStatement("SELECT * FROM quantita WHERE nome_farmaco ILIKE ?");
                 pst.clearParameters();
                 pst.setString(1, key);
                 rs = pst.executeQuery();
                  if(!rs.isBeforeFirst()) {
                       System.out.print("Farmaco non trovato");
                   }
-                  rs.next();
+                rs.next();
                 this.quantitaPrincipio=rs.getString("quantita");                
                
                 System.out.println("faramco creato");

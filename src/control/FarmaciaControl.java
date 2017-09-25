@@ -330,7 +330,7 @@ public class FarmaciaControl  {
         s="Paziente: "+paziente+"\n"+"Prescrizione numero: "+codicePrescrizione+"\n";
         for (String far: listaFarmaci) {
             Farmaco farmaco= new Farmaco(far);
-            s+=far+" prezzo "+farmaco.prezzo();
+            s+=far+" prezzo "+farmaco.prezzo()+"\n";
             totale+=farmaco.prezzoF();
         }
         s+="\n Totale: "+totale;
