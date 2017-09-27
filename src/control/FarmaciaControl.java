@@ -255,7 +255,7 @@ public class FarmaciaControl  {
         }
     
     //forse da cambiare per controllo errore mancanza farmaci
-    public static void ritiraFarmaciGenerico(String paziente, String codicePrescrizione, String codiceFarmacia) {
+    public static boolean ritiraFarmaciGenerico(String paziente, String codicePrescrizione, String codiceFarmacia) {
               
             ArrayList<String> listaFarmaci = control.PrescrizioneControl.getListaFarmaci(paziente, codicePrescrizione);
             PreparedStatement pst;
@@ -268,11 +268,17 @@ public class FarmaciaControl  {
                     pst = con.prepareStatement("UPDATE Farmacia SET quantita_generico = quantita_generico-1 WHERE codice ILIKE ? AND farmaco ILIKE ? ");
                     pst.clearParameters();
                     pst.setString(1, codiceFarmacia);
+                    int rowsUpdated=0;
                     
                     for(int i=0;i<listaFarmaci.size();i++){
                         pst.setString(2, listaFarmaci.get(i));
-                        pst.executeUpdate();
+                        rowsUpdated += pst.executeUpdate();
+                        
                     }
+                    
+                    if (rowsUpdated < listaFarmaci.size()) {
+                            return false;
+                        }
                     pst.close();
                     con.close();
                    
@@ -284,12 +290,12 @@ public class FarmaciaControl  {
             catch(ClassNotFoundException e) {
                 System.out.print(e.getMessage());
             }
-        
+        return true;
         
         }
     
     
-    public static void ritiraFarmaciMarca(String paziente, String codicePrescrizione, String codiceFarmacia) {
+    public static boolean ritiraFarmaciMarca(String paziente, String codicePrescrizione, String codiceFarmacia) {
               
             ArrayList<String> listaFarmaci = control.PrescrizioneControl.getListaFarmaci(paziente, codicePrescrizione);
             PreparedStatement pst;
@@ -301,11 +307,16 @@ public class FarmaciaControl  {
                     pst = con.prepareStatement("UPDATE Farmacia SET quantita_marca = quantita_marca-1 WHERE codice ILIKE ? AND farmaco ILIKE ? ");
                     pst.clearParameters();
                     pst.setString(1, codiceFarmacia);
-                    
+                    int rowsUpdated=0;
                     for(int i=0;i<listaFarmaci.size();i++){
                          pst.setString(2, listaFarmaci.get(i));
-                         pst.executeUpdate();
+                         rowsUpdated += pst.executeUpdate();
                     }
+                    
+                    if (rowsUpdated < listaFarmaci.size()) {
+                            return false;
+                        }
+                    
                     pst.close();
                     con.close();
                    
@@ -317,7 +328,7 @@ public class FarmaciaControl  {
             catch(ClassNotFoundException e) {
                 System.out.print(e.getMessage());
             }
-        
+        return true;
         
         }
     
@@ -327,7 +338,7 @@ public class FarmaciaControl  {
         int totale=0;
         ArrayList<String> listaFarmaci = control.PrescrizioneControl.getListaFarmaci(paziente, codicePrescrizione);
         
-        s="Paziente: "+paziente+"\n"+"Prescrizione numero: "+codicePrescrizione+"\n";
+        s="Paziente: "+paziente+"\n"+"Prescrizione numero: "+codicePrescrizione+"\n\n";
         for (String far: listaFarmaci) {
             Farmaco farmaco= new Farmaco(far);
             s+=far+" prezzo "+farmaco.prezzo()+"\n";

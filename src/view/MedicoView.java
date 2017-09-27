@@ -51,6 +51,11 @@ public class MedicoView extends javax.swing.JFrame {
                 CompilaPrescrizioniMouseClicked(evt);
             }
         });
+        CompilaPrescrizioni.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CompilaPrescrizioniActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -90,6 +95,10 @@ public class MedicoView extends javax.swing.JFrame {
     private void CompilaPrescrizioniMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CompilaPrescrizioniMouseClicked
         control.MedicoControl.effettuaPrescrizioni();
     }//GEN-LAST:event_CompilaPrescrizioniMouseClicked
+
+    private void CompilaPrescrizioniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CompilaPrescrizioniActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_CompilaPrescrizioniActionPerformed
 
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

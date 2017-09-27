@@ -58,14 +58,7 @@ public class Prescrizione {
                 this.data_uso=rs.getDate("data_uso");
                 this.pendente=rs.getBoolean("pendente");
              
-                pst = con.prepareStatement("SELECT * FROM principio_attivo WHERE nome ILIKE ?");
-                pst.clearParameters();
-                pst.setString(1, key);
-                rs = pst.executeQuery();
-                 if(!rs.isBeforeFirst()) {
-                      System.out.print("Farmaco non trovato");
-
-            }
+                
                                 
                     rs.close();
                     pst.close();

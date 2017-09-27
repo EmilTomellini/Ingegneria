@@ -174,22 +174,22 @@ public class RitiroView extends javax.swing.JFrame {
         if(jRadioButton1.isSelected()) {
            
             if(jCheckBox1.isSelected()) {
-                control.FarmaciaControl.ritiraFarmaciGenerico(numTessera, numPrescrizione, codiceFarmacia.get(0));
+                if(control.FarmaciaControl.ritiraFarmaciGenerico(numTessera, numPrescrizione, codiceFarmacia.get(0)))
                 control.PrescrizioneControl.setUsoPrescrizione(numPrescrizione, true);
                 }
             else {
-                control.FarmaciaControl.ritiraFarmaciMarca(numTessera, numPrescrizione, codiceFarmacia.get(0));
+                if(control.FarmaciaControl.ritiraFarmaciMarca(numTessera, numPrescrizione, codiceFarmacia.get(0)))
                 control.PrescrizioneControl.setUsoPrescrizione(numPrescrizione, false);
                 }    
             }    
         else if(jRadioButton2.isSelected()) {
             
             if(jCheckBox1.isSelected()) {
-                control.FarmaciaControl.ritiraFarmaciGenerico(numTessera, numPrescrizione, codiceFarmacia.get(1));
+                if(control.FarmaciaControl.ritiraFarmaciGenerico(numTessera, numPrescrizione, codiceFarmacia.get(1)))
                 control.PrescrizioneControl.setUsoPrescrizione(numPrescrizione, true);
                 }
             else {
-                control.FarmaciaControl.ritiraFarmaciMarca(numTessera, numPrescrizione, codiceFarmacia.get(1));
+                if(control.FarmaciaControl.ritiraFarmaciMarca(numTessera, numPrescrizione, codiceFarmacia.get(1)))
                 control.PrescrizioneControl.setUsoPrescrizione(numPrescrizione, false);
                 }
         
@@ -197,11 +197,11 @@ public class RitiroView extends javax.swing.JFrame {
         else if(jRadioButton3.isSelected()) {
             
             if(jCheckBox1.isSelected()) {
-                control.FarmaciaControl.ritiraFarmaciGenerico(numTessera, numPrescrizione, codiceFarmacia.get(2));
+                if(control.FarmaciaControl.ritiraFarmaciGenerico(numTessera, numPrescrizione, codiceFarmacia.get(2)))
                 control.PrescrizioneControl.setUsoPrescrizione(numPrescrizione, true);
                 }
             else {
-                control.FarmaciaControl.ritiraFarmaciMarca(numTessera, numPrescrizione, codiceFarmacia.get(2));
+                if(control.FarmaciaControl.ritiraFarmaciMarca(numTessera, numPrescrizione, codiceFarmacia.get(2)))
                 control.PrescrizioneControl.setUsoPrescrizione(numPrescrizione, false);
                 }
               

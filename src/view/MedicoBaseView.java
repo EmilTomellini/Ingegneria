@@ -80,6 +80,11 @@ public class MedicoBaseView extends javax.swing.JFrame {
                 jButton5MouseClicked(evt);
             }
         });
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         jButton6.setText("Verfica prescrizioni farmaci");
         jButton6.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -168,6 +173,10 @@ public class MedicoBaseView extends javax.swing.JFrame {
         FarmaciPazienteView fmv = new FarmaciPazienteView();
         fmv.setVisible(true);
     }//GEN-LAST:event_jButton5MouseClicked
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton5ActionPerformed
 
          
 
